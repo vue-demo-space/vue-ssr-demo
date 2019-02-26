@@ -4,10 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --content-base /dist --config webpack.client.config.js --inline --hot --open",
-    "build-client": "cross-env NODE_ENV=production webpack --config webpack.client.config.js --progress --hide-modules",
-    "build-server": "cross-env NODE_ENV=production webpack --config webpack.server.config.js --progress --hide-modules",
-    "build": "rm -rf dist && npm run build-client && npm run build-server",
-    "server": "nodemon server/server"
+    "build-client": "cross-env NODE_ENV=production webpack --config webpack.client.config.js --progress --hide-modules"
   },
   "dependencies": {
     "express": "^4.16.4",

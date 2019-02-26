@@ -14,23 +14,13 @@ export default {
     return {
       title: 'this is an home page',
       btnName: '点我！',
+      list: ['kobe', 'kidd', 'curry']
     }
   },
   name: 'home',
   methods: {
     cb() {
       alert('hello world')
-    }
-  },
-  asyncData({ store, route }) {
-    return store.dispatch('fetchList')
-  },
-  // created() {
-  //   this.$store.dispatch('fetchList')
-  // },
-  computed: {
-    list() {
-      return this.$store.state.list
     }
   }
 }

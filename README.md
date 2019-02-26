@@ -1,28 +1,16 @@
 # vue-ssr-demo
 
-这个 demo 将逐步实现三个部分：
-
-1. 一个简单的 vue spa（没有异步请求）
-2. 一个简单的 vue ssr（没有异步请求）
-3. 带有异步请求的 vue ssr
-
-## 一个简单的 vue spa（没有异步请求）
-
-[源码](https://github.com/vue-demo-space/vue-ssr-demo/tree/4251918dd2cdc2411e69cc264a516cbfba7d6ec7)
-
-首先实现一个简单的 vue spa，这个非常简单，直接用 vue cli3 脚手架生成代码，删减了一些无用代码，简化 demo
-
-demo 中包含 `/` 以及 `/about` 两个路由
+提供了一个简单的 vue spa demo，demo 包含 `/` 以及 `/about` 两个页面
 
 ```bash
-# 开发 
-$ npm run serve
+# 开发
+$ npm run dev
 
 # 打包
-$ npm run build
+$ npm run build-client
 ```
 
-打包后可以去 `/dist` 目录起 server 运行，需要注意的是，**无法直接打开 `/about` 页面**，这是正常的，线上运行的话还需要配置下，详见 [这里](https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90)
+几个注意点：
 
-## 一个简单的 vue ssr（没有异步请求）
-
+* 配置了 .bebelrc 文件是因为用了异步组件（详见 src/router.js 文件，About.vue 是异步引入的，根据控制台提示需要引入 @babel/plugin-syntax-dynamic-import）
+* babel-loader 的配置，貌似既需要在 module.rules 里配置，也需要在 plugins 里配置，见 webpack.base.config.js 文件
