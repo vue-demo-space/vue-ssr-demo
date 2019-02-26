@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <button @click="cb">{{ btnName }}</button>
     <ul>
-      <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+      <li v-for="(item, index) in list" :key="index" @click="alertName(item)">{{ item }}</li>
     </ul>
   </div>
 </template>
@@ -20,14 +20,14 @@ export default {
   methods: {
     cb() {
       alert('hello world')
+    },
+    alertName(name) {
+      alert(name)
     }
   },
   asyncData({ store, route }) {
     return store.dispatch('fetchList')
   },
-  // created() {
-  //   this.$store.dispatch('fetchList')
-  // },
   computed: {
     list() {
       return this.$store.state.list

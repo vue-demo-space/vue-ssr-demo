@@ -14,13 +14,11 @@ export default context => {
     // 等到 router 将可能的异步组件和钩子函数解析完
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()
+
       // 匹配不到的路由，执行 reject 函数，并返回 404
       if (!matchedComponents.length) {
         return reject({ code: 404 })
       }
-
-      // Promise 应该 resolve 应用程序实例，以便它可以渲染
-      // resolve(app)
 
       // 对所有匹配的路由组件调用 `asyncData()`
       Promise.all(matchedComponents.map(Component => {
@@ -38,6 +36,7 @@ export default context => {
         // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
         context.state = store.state
 
+        // Promise 应该 resolve 应用程序实例，以便它可以渲染
         resolve(app)
       }).catch(reject)
     }, reject)

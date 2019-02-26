@@ -20,7 +20,7 @@ export function createStore() {
             console.log('开始获取数据')
             commit('setList', ['kobe', 'kidd', 'curry'])
             resolve()
-          }, 100)
+          }, 1000)
         })
       }
     }
