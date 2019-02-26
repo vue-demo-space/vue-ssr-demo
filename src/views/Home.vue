@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    {{ title }}
+    <h1>{{ title }}</h1>
+    <button @click="cb">{{ btnName }}</button>
+    <ul>
+      <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+    </ul>
   </div>
 </template>
 
@@ -8,9 +12,26 @@
 export default {
   data() {
     return {
-      title: 'this is an home page'
+      title: 'this is an home page',
+      btnName: '点我！',
     }
   },
-  name: 'home'
+  name: 'home',
+  methods: {
+    cb() {
+      alert('hello world')
+    }
+  },
+  asyncData({ store, route }) {
+    return store.dispatch('fetchList')
+  },
+  // created() {
+  //   this.$store.dispatch('fetchList')
+  // },
+  computed: {
+    list() {
+      return this.$store.state.list
+    }
+  }
 }
 </script>

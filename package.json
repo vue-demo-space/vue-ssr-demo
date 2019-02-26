@@ -3,20 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --content-base /dist --config webpack.client.config.js --inline --hot --open",
+    "build-client": "cross-env NODE_ENV=production webpack --config webpack.client.config.js --progress --hide-modules",
+    "build-server": "cross-env NODE_ENV=production webpack --config webpack.server.config.js --progress --hide-modules",
+    "build": "rm -rf dist && npm run build-client && npm run build-server",
+    "server": "nodemon server/server"
   },
   "dependencies": {
     "express": "^4.16.4",
     "vue": "^2.6.7",
     "vue-router": "^3.0.1",
+    "vue-router-sync": "^0.1.0",
     "vue-server-renderer": "^2.6.7",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-service": "^3.4.0",
-    "node-sass": "^4.9.0",
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.10",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-loader": "^15.6.4",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.0",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }
