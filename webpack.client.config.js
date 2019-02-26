@@ -1,5 +1,4 @@
 const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
@@ -15,7 +14,6 @@ module.exports = merge(base, {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html'
     }),
