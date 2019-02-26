@@ -19,3 +19,7 @@ demo 总共实现三部分：
 * [ ] ssr 开发环境搭建
 * [ ] ssr 异步数据获取 demo 浏览器有个报错（详见 [这里](https://github.com/vue-demo-space/vue-ssr-demo/tree/step-2) issue 部分）
 * [ ] `/` 跳到 `/about` 再跳到 `/` 时，客户端是否还应该去做异步请求？后续参考下 Nuxt 的情况
+
+这张图补上：
+
+![](https://cloud.githubusercontent.com/assets/499550/17607895/786a415a-5fee-11e6-9c11-45a2cfdf085c.png)
