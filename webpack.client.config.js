@@ -13,7 +13,7 @@ module.exports = merge(base, {
     // publicPath: '/dist/',
     filename: 'entry-client.js'
   },
-  devtool: '#eval-source-map',
+  devtool: 'eval-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html'
@@ -22,7 +22,7 @@ module.exports = merge(base, {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = 'source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new VueSSRClientPlugin()

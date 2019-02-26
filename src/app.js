@@ -10,6 +10,8 @@ export function createApp () {
   const store = createStore()
 
   // 同步路由状态(route state)到 store
+  // const unsync = sync(store, router) // done. Returns an unsync callback fn
+  // unsync()
   sync(store, router)
 
   const app = new Vue({
@@ -18,6 +20,8 @@ export function createApp () {
     store,
     render: h => h(App)
   })
+
+  
 
   // 返回 app 和 router
   return { app, router, store }

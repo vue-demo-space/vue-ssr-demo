@@ -50,7 +50,7 @@ if (window.__INITIAL_STATE__) {
 }
 ```
 
-我尝试把这行代码去掉，发现前端页面无法渲染这个列表了，尽管 html 已经渲染了，我猜测是 vue app 初始化的时候，store.state.list 并不能获取到东西，所以页面上就空了
+我尝试把这行代码去掉，发现前端页面无法渲染这个列表了，尽管 html 已经渲染了，我猜测是 vue app 初始化的时候，store.state.list（没有初始化的数据）并不能获取到东西，所以页面上就空了
 
 ## 实现步骤
 
@@ -74,8 +74,41 @@ if (window.__INITIAL_STATE__) {
 }
 ```
 
-对于客户端数据预取，有两种方式：
+既然服务端已经执行了 asyncData 方法，异步获取了我们的数据，那是不是所有异步请求都是在服务端执行的呢？
+
+不是的，以我们的 demo 为例，我们在 `/` 路由页面需要异步获取数据，为了体现 "异步"，我们将 setTimeout 设置了 3000ms。我们先直接打开 `/` 页面，node server 会执行这个异步，所以至少白屏 3000ms 后才会返回页面。如果我们先打开 `/about` 页面，然后再点击跳到 `/` 页面，这时候实际上是个 spa 单页应用，这个时候的异步请求是客户端发出的，这就是客户端数据预取
+
+对于 [客户端数据预取](https://ssr.vuejs.org/zh/guide/data.html#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%95%B0%E6%8D%AE%E9%A2%84%E5%8F%96-client-data-fetching)，有两种方式：
 
 1. 在路由导航之前解析数据
 2. 匹配要渲染的视图后，再获取数据
 
+我们还是以先进入 `/about` 页面，后点击进入 `/` 页面为例。在路由导航之前解析数据，我们想要点击进入 `/` 页面，会在 `/about` 页继续停留 3000ms（这个时候页面展示的还是原来的页面，仿佛点击失效一般，可以做个 loading 效果），等数据取到后 **再渲染整个页面**；但是如果是匹配要渲染的视图后，再获取数据，是指先渲染 `/` 页面的其他部分，等 3000ms 后数据获取到后，再去渲染这部分
+
+---
+
+issue：
+
+这里我们根据官方步骤处理后，在页面路由切换的时候代码有个报错：
+
+![](https://ws1.sinaimg.cn/large/006tKfTcly1g0k2mybfbxj326u090425.jpg)
+
+目前虽然有报错，但是不影响效果，定位到 **可能** 是 vuex-router-sync 的问题，[官方](https://github.com/vuejs/vuex-router-sync) 介绍它：
+
+> Sync vue-router's current $route as part of vuex store's state.
+
+查看 `/` 页面的 html 代码：
+
+```js
+window.__INITIAL_STATE__={"list":["kobe","kidd","curry"],"route":{"name":"home","path":"\u002F","hash":"","query":{},"params":{},"fullPath":"\u002F","meta":{},"from":{"name":null,"path":"\u002F","hash":"","query":{},"params":{},"fullPath":"\u002F","meta":{}}}}
+```
+
+我们把 vuex-router-sync 的使用取消后查看代码：
+
+```js
+window.__INITIAL_STATE__={"list":["kobe","kidd","curry"]}
+```
+
+我个人猜测它的作用可能是从 `/` 跳到 `/about` 然后再跳回 `/` 页面时，不会再去异步请求了
+
+这个报错点以及疑问点还需要后续继续探索
