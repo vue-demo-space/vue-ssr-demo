@@ -5,6 +5,7 @@ const merge = require('webpack-merge')
 const base = require('./webpack.base.config.js')
 
 module.exports = merge(base, {
+  mode: process.env.NODE_ENV,
   entry: './src/entry-client.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -16,7 +17,7 @@ module.exports = merge(base, {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html'
-    }),
+    })
   ]
 })
 

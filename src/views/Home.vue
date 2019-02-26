@@ -2,8 +2,13 @@
   <div class="home">
     <h1>{{ title }}</h1>
     <button @click="cb">{{ btnName }}</button>
+    <h3>created() 的时候创建</h3>
     <ul>
       <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+    </ul>
+    <h3>mounted() 的时候创建</h3>
+    <ul>
+      <li v-for="(item, index) in list1" :key="index">{{ item }}</li>
     </ul>
   </div>
 </template>
@@ -14,6 +19,8 @@ export default {
     return {
       title: 'this is an home page',
       btnName: '点我！',
+      list: [],
+      list1: []
     }
   },
   name: 'home',
@@ -22,16 +29,13 @@ export default {
       alert('hello world')
     }
   },
-  asyncData({ store, route }) {
-    return store.dispatch('fetchList')
+  created() {
+    console.log('created()')
+    this.list = ['kobe', 'kidd', 'curry']
   },
-  // created() {
-  //   this.$store.dispatch('fetchList')
-  // },
-  computed: {
-    list() {
-      return this.$store.state.list
-    }
+  mounted() {
+    console.log('mounted()')
+    this.list1 = ['paul', 'james', 'carter']
   }
 }
 </script>

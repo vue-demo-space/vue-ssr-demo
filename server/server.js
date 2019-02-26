@@ -1,7 +1,9 @@
 const express = require('express')
 const server = express()
 const path = require('path')
-const { createBundleRenderer } = require('vue-server-renderer')
+const {
+  createBundleRenderer
+} = require('vue-server-renderer')
 
 const serverBundle = require('./../dist/vue-ssr-server-bundle.json')
 const clientManifest = require('./../dist/vue-ssr-client-manifest.json')
@@ -9,11 +11,11 @@ const clientManifest = require('./../dist/vue-ssr-client-manifest.json')
 const renderer = createBundleRenderer(serverBundle, {
   runInNewContext: false, // 推荐
   template: require('fs').readFileSync(path.resolve(__dirname, './../dist/index.html'), 'utf-8'),
-  clientManifest // （可选）客户端构建 manifest
+  // clientManifest // （可选）客户端构建 manifest
 })
 
 // serve 静态资源
-server.use(express.static(path.resolve(__dirname, './../dist'), {index: false}))
+server.use(express.static(path.resolve(__dirname, './../dist/'), {index: false}))
 
 server.get('*', (req, res) => {
   const context = { url: req.url }
