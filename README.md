@@ -8,7 +8,7 @@ demo 总共实现三部分：
 
 个人认为对于 ssr 的几个重要理解（可以类比 Nuxt）：
 
-* 对于第一次打开的页面，实际上是 node 渲染的，之后的操作就是一个单页了
+* 对于第一次打开的页面，实际上是 node 渲染的，之后的操作就是一个单页了。也可以理解成 vue ssr 项目前端路由和后端路由是同时存在的，但是只有一套代码，因为 store 和 router 都是前后端同构的
 * ssr 依赖于 vue-server-renderer 这个库，该库能将 vue app 转成 html
 * 同构就是客户端和服务端共用一套代码，vue 能够同构的前提是虚拟 dom
 * 为什么要用 axios 这样能在客户端和服务端同时使用的库？因为 ssr 定义的 asyncData 方法可能会在服务端也可能在客户端执行，事实上，如果是在服务端执行，里面写一些跨域逻辑也是 ok 的（但是因为也要在客户端执行，所以 ...)
@@ -25,3 +25,5 @@ demo 总共实现三部分：
 ![](https://cloud.githubusercontent.com/assets/499550/17607895/786a415a-5fee-11e6-9c11-45a2cfdf085c.png)
 
 另外主要参考了官方文档以及 [这篇](https://github.com/youngwind/blog/issues/112) 文章，写的非常棒，以及他写的 [demo](https://github.com/youngwind/vue-ssr-demo) (我踩了个 [小坑](https://github.com/youngwind/vue-ssr-demo/issues/1))
+
+
